@@ -1,6 +1,6 @@
 import json
 # import yaml
-from ruamel import yaml
+import yaml
 
 
 class MyEncoder(json.JSONEncoder):

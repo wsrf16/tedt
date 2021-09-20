@@ -3,8 +3,15 @@ from common import dictionary
 
 
 def any2json(obj):
+    # dict = obj.__dict__
     dict = dictionary.obj2dict(obj)
     return json.dumps(dict)
+
+# def convert2json(dict_json):
+#   return Person(dict_json['name'], dict_json['age'], dict_json['email'])
+#
+# def json2any(json):
+#     return json.loads(json, object_hook: convert2json)
 
 
 def file2dict(file):

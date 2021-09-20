@@ -5,6 +5,7 @@ import random
 import math
 import copy
 
+
 class Genetic(object):
 
     @staticmethod
@@ -38,7 +39,7 @@ class Genetic(object):
         fitness_list = []
         for i in range(len(group)):
             temp = int(group[i], 2)
-            x = -1 + temp * ( 2 - (-1)) / (pow(2, length) -1)
+            x = -1 + temp * (2 - (-1)) / (pow(2, length) - 1)
             y = x * math.sin(10 * math.pi * x) + 2
             fitness_list.append(y)
         return fitness_list
@@ -52,19 +53,19 @@ class Genetic(object):
         fitness_list = self.fitness(group, length)
         fitness_sum = sum(fitness_list)
         fitness_ratio = 0
-        fitness_ratio_list = []
+        fitness_accumulation_ratio_list = []
         group_selection = []
         select_count = int(len(group) * selection_rate)
 
         for fitness in fitness_list:
             fitness_ratio += fitness / fitness_sum
-            fitness_ratio_list.append(fitness_ratio)
+            fitness_accumulation_ratio_list.append(fitness_ratio)
 
         for i in range(select_count):
             rand = random.random()
 
             for j, item in enumerate(group):
-                if rand <= fitness_ratio_list[j]:
+                if rand <= fitness_accumulation_ratio_list[j]:
                     group_selection.append(group[j])
                     break
 
@@ -160,15 +161,15 @@ class Genetic(object):
         group_size = 500
         # 染色体长度
         length = 22
+
+        group = self.init_group(group_size, length)
         selection_rate = 0.5
         crossover_rate = 0.8
         mutation_rate = 0.2
         generations = 20
-
-        group = self.init_group(group_size, length)
         evolution_group = self.evolve(group, length, selection_rate, crossover_rate, mutation_rate, generations)
 
         results = self.fitness(evolution_group, length)
         result = max(results)
         print("最优解：{0}".format(result))
-        return;
+        return

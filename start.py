@@ -2,26 +2,18 @@
 
 # python2
 # sys.setdefaultencoding('utf-8')
-
 import sys
-
-print(sys.path)
 import algorithm.bayes.bayes as bayes
 import numpy as np
 from algorithm.recommendation import recommendation
 from algorithm.genetic import genetics
 from algorithm.pso import psos1
+from algorithm.search import first_search, backtrack
 from algorithm.pso import psos2
+from algorithm.dp import dp
 from algorithm.simulate_dannealing import sa
-
 from graphic import figures
 import matplotlib.pyplot as plt
-
-# 不显示
-# plt.switch_backend('Agg')
-# 显示
-plt.switch_backend('TkAgg')
-
 from line_arregression import sklearns
 from feature import qdingloginsample
 from grammar import classdemo
@@ -29,9 +21,83 @@ from grammar import json_sample
 from grammar import argumentsdemo
 from grammar import numpy_operation
 
-import common.yaml_sugar
-from common import Bean
-from common import dictionary
+from algorithm.simple import sorts, finds, leetcode, generalization
+from feature import diff_file
+
+moneys = [1, 2, 5, 10]
+aaa = generalization.enumerate_list(moneys)(10, [])
+
+print(sys.path)
+# 不显示
+# plt.switch_backend('Agg')
+# 显示
+plt.switch_backend('TkAgg')
+
+s1 = sorts.sliding_window_most_sum([300, 200, 400, 100], 2)
+s2 = sorts.quick_sort([72, 6, 57, 88, 60, 42, 83, 73, 48, 85], lambda a, b: a < b)
+s3 = sorts.group_by([8, 4, 5, 7, 1, 3, 6, 2], 2)
+s4 = finds.mid_find([160, 80, 100, 140, 20, 60, 120, 40], lambda c: c, 20)
+
+leetcode.twoSum1([2, 7, 11, 15], 9)
+leetcode.addTwoNumbers2([2, 4, 3], [5, 6, 4])
+leetcode.lengthOfLongestSubstring3("abcabcbb")
+leetcode.longestPalindrome4("babad")
+# leetcode.ff()
+# exit(0)
+
+# s4 = sorts.merge_sort([8, 4, 5, 7, 1, 3, 6, 2], lambda a, b: a < b)
+
+
+# source = [72, 6, 57, 88, 60, 42, 83, 73, 48, 85]
+# exit(0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# for pro in project:
+#     print(pro)
+#     commits = pro.commits.list(since='2019-08-11T00:00:00Z')
+#     for c in commits:
+#         print(pro.commits.get(c.id).stats['total'])
+
+
+
+
+
+
+
+
+
+# class myThread (threading.Thread):
+#     def __init__(self, threadID, name, counter):
+#         threading.Thread.__init__(self)
+#         self.threadID = threadID
+#         self.name = name
+#         self.counter = counter
+#     def run(self):
+#         print ("开始线程：" + self.name)
+#         print_time(self.name, self.counter, 5)
+#         print ("退出线程：" + self.name)
+
+
 
 
 class C(object):
@@ -46,19 +112,33 @@ class Foo(object):
         self.c = C()
 
 
-foo = Foo()
-d = {"a": "b", "c": {"d": "e"}}
-obj = Bean.Dict2Obj(d)
-print(obj.a)
-print(obj.c)
-print(obj.c.d)
 
-dic = dictionary.obj2dict(foo)
 
-aa = {'a': '赵煜'}
-yml = common.yaml_sugar.obj2yaml(foo)
-obj = common.yaml_sugar.yaml2dict(yml)
-yml = common.yaml_sugar.obj2yaml({'a': '赵煜'})
+# asd = {x ** 2 for x in [1, 2, 3, 4, 5, 6] if x % 2 == 0}
+#
+# foo = Foo()
+# d = {"a": "b", "c": {"d": "e"}}
+# obj = bean.Dict2Obj(d)
+# print(obj.a)
+# print(obj.c)
+# print(obj.c.d)
+#
+# dic = dictionary.obj2dict(foo)
+#
+# aa = {'a': '赵煜'}
+# yml = common.yaml_sugar.obj2yaml(foo)
+# obj = common.yaml_sugar.yaml2dict(yml)
+# yml = common.yaml_sugar.obj2yaml({'a': '赵煜'})
+
+
+
+
+
+
+
+
+
+
 
 # matplotlib的默认backend是TkAgg，而FltkAgg, GTK, GTKAgg, GTKCairo, TkAgg , Wx or WxAgg这几个backend都要求有GUI图形界面的。
 # 会提示：Backend TkAgg is interactive backend. Turning interactive mode on.
@@ -115,9 +195,17 @@ operate = 'classdemo'
 operate = 'ldap'
 operate = 'jsonsample'
 operate = 'sa'
-operate = 'genetic'
 operate = 'pso2'
+operate = 'diff_file'
+operate = 'sa'
 operate = 'pso1'
+operate = 'genetic'
+operate = 'dp'
+operate = 'first_search'
+operate = 'backtrack'
+operate = 'dp'
+
+
 
 if operate == 'recommendation':
     recommendation_instance = recommendation.Statistics()
@@ -166,5 +254,30 @@ elif operate == 'classdemo':
     classdemo.Car('name')
 elif operate == 'jsonsample':
     json_sample.do()
+elif operate == 'diff_file':
+    diff_file.do()
+elif operate == 'dp':
+    dp = dp.DP()
+    result = dp.cmp1(10)
+    result = dp.cmp2(10)
+    result = dp.cmp2(10)
+    dp.bag()
+elif operate == 'first_search':
+    fs = first_search.FirstSearch2()
+    fs.do()
+elif operate == 'backtrack':
+    back1 = backtrack.Backtrack1()
+    back1.todo()
+
+    back2 = backtrack.Backtrack2()
+    back2.todo()
+
 elif operate != 'pppppp':
     exit(0)
+
+
+def fff():
+    return
+
+
+

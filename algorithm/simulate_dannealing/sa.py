@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math
 import random
 
-
+# Simulate Anneal
 class SA(object):
     """
     退火

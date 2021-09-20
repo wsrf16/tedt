@@ -1,2 +1,0 @@
-def showme():
-    print('showwwwwwwwww')

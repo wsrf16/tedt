@@ -48,4 +48,4 @@ class PSO(object):
                 self.g_best = self.x[np.argmin(fitness)]
                 self.global_best_fitness = np.min(fitness)
             print('best fitness: %.5f, mean fitness: %.5f' % (self.global_best_fitness, np.mean(fitness)))
-    plt.show()
+        plt.show()
