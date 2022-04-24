@@ -1,12 +1,6 @@
 from typing import Any, Callable
 
 
-def sliding_window_most_sum(lst, length):
-    global_sum = 0
-    for i, itm in enumerate(lst):
-        _sum = sum(lst[i:i + length])
-        global_sum = max(global_sum, _sum)
-    return global_sum
 
 
 # def lt(a, b):

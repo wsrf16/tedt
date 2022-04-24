@@ -1,3 +1,6 @@
+
+
+
 class Stack(object):
     """栈"""
     def __init__(self):
@@ -22,4 +25,3 @@ class Stack(object):
     def size(self):
         """返回栈的大小"""
         return len(self.items)
-

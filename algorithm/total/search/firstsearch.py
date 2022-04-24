@@ -1,6 +1,6 @@
-from collections import Sequence
 from typing import List
-from collections import deque
+
+from common.struct.node.binary import TreeNodeUtil
 
 
 class Next(object):
@@ -94,7 +94,6 @@ class FirstSearch2(object):
         #     '澳门': ['广东'],
         # }
 
-
     ####################################
     def do(self):
         parent, path = dfs(self.graph, 'D')
@@ -120,9 +119,9 @@ def dfs(graph, s):
 
 
 def _do1(graph, s, bfs_or_dfs: str = 'bfs'):
-    # visited：全局已经走过的节点
+    # result：全局已经走过的节点
     # to_visit：本轮待走节点（未走过的节点），用于下一轮走
-    visited, to_visit = set([s]), [s]
+    result, to_visit = set([s]), [s]
     parent = {s: None}
     path = []
     while len(to_visit) > 0:
@@ -133,30 +132,30 @@ def _do1(graph, s, bfs_or_dfs: str = 'bfs'):
         path.append(current)
         for next in nexts:
             # 放
-            if next not in visited:
+            if next not in result:
                 to_visit.append(next)
-                visited.add(next)
+                result.add(next)
                 parent[next] = current
     return parent, path
 
 
 def _do(graph, s, bfs_or_dfs: str = 'dfs'):
-    # visited：全局已经走过的节点
+    # result：全局已经走过的节点
     # to_visit：本轮待走节点（未走过的节点），用于下一轮走
-    visited, to_visit = [], [s]
+    result, to_visit = [], [s]
     parent = {s: None}
     while to_visit:
         # 取
         current = to_visit.pop(0) if bfs_or_dfs == 'bfs' else to_visit.pop()
         # visited = append_to_distinct(current, visited)
-        if current not in visited:
-            visited.append(current)
+        if current not in result:
+            result.append(current)
         for next in graph[current]:
             # 放
-            if next not in visited:
+            if next not in result:
                 to_visit.append(next)
                 parent[next] = current
-    return parent, visited
+    return parent, result
 
 
 
@@ -168,26 +167,6 @@ def _do(graph, s, bfs_or_dfs: str = 'dfs'):
 
 
 
-def append_to_distinct(ele, lst: list) -> list:
-    lst.append(ele)
-    d = distinct(lst)
-    return d
-
-def distinct(lst: list) -> list:
-    d = list(set(lst))
-    d.sort(key=lst.index)
-    return d
-
-
-
-
-        # visited, queue = set(), [s]
-        # while queue:
-        #     vertex = queue.pop(0)
-        #     if vertex not in visited:
-        #         visited.add(vertex)
-        #         queue.extend(set(graph[vertex]) - set(visited))
-        # return visited
 
 
 
@@ -198,4 +177,69 @@ def distinct(lst: list) -> list:
 
 
 
+def array_to_binary_tree(lst: list):
+    def max_path_sum(root):
+        """
+        :type root: data.structure.BinaryTreeNode
+        :rtype: int
+        """
+        res = float('-inf')
 
+        def max_path(node):
+            nonlocal res
+            if not node:
+                return 0
+
+            left = max(0, max_path(node.left))
+            right = max(0, max_path(node.right))
+            res = max(res, left + right + node.val)
+            return max(left, right) + node.val
+
+        max_path(root)
+        return res
+
+    tree_node = TreeNodeUtil.convert(lst)
+    # _lst = TreeNodeUtil.flatten(tree_node)
+
+    sum = max_path_sum(tree_node)
+    return sum
+
+
+height = 0
+
+
+def height_by_recursion(lst: list):
+    tree_node = TreeNodeUtil.convert(lst)
+    stack = []
+    stack.append(tree_node)
+    highest(tree_node, stack)
+    return height
+
+
+def highest(tree_node: TreeNodeUtil, stack: list):
+    global height
+    if tree_node.left is None and tree_node.right is None:
+        height = max(len(stack), height)
+        return
+
+    for it in [tree_node.left, tree_node.right]:
+        stack.append(it)
+        highest(it, stack)
+        stack.pop()
+
+
+def height_by_iteration(lst: list):
+    global height
+    tree_node = TreeNodeUtil.convert(lst)
+    stack = []
+    stack.append(tree_node)
+
+    while stack:
+        height = max(len(stack), height)
+        next = stack.pop()
+
+        for it in [next.left, next.right]:
+            if next.left is not None and next.right is not None:
+                stack.append(it)
+
+    return height
